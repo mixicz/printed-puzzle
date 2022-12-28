@@ -1,0 +1,26 @@
+#ffffff Fillamentum Traffic White
+#000000 Fillamentum Traffic Black
+#4d6f39 Fillamentum Green Grass (RAL 6010)
+#ffff00 Fillamentum Luminous Yellow (RAL 1026)
+#f7b500 Fillamentum Traffic Yellow (RAL 1023)
+#ed6b21 Fillamentum Orange Orange (RAL 2008)
+#bb1e10 Fillamentum Traffic Red (RAL 3020)
+#b50241 Fillamentum Everybody's Magenta (aproximate)
+#a690a0 Fillamentum Lilac (aproximate)
+#9acfdb Fillamentum Baby Blue (aproximate)
+#007cb0 Fillamentum Sky Blue (RAL 5015)
+#193153 Fillamentum Cobalt Blue (RAL 5013)
+
+#0f2536 Fillamentum Vertigo Starlight (aproximate)
+#212011 Fillamentum Vertigo Galaxy (aproximate)
+#404040 Fillamentum Vertigo Gray (aproximate)
+#808080 Fillamentum Rapunzel Silver (aproximate)
+#785702 Fillamentum Gold Happens (aproximate)
+#856330 Fillamentum Mukha (aproximate)
+
+#76689a Filament-PM Lila (RAL 4005)
+
+#8f714d Aurapol Human Skin (aproximate)
+#ebaca4 Smartfil Quartz (aproximate)
+#00a8a8 Smartfil Sapphire (aproximate)
+#b06a7f FIBER3D Noctilucent Purple (aproximate)
