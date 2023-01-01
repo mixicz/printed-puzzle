@@ -1,1 +1,6 @@
-.venv
+out.scad
+*.stl
+*.3mf
+convert/preview.png
+colors/test*
+images/test*
