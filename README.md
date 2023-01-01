@@ -57,6 +57,29 @@ Palette should contain real filament colors (many manufacturers document their f
 
 Sample palette file is provided in `colors/pla.txt` file. It is good idea to use one palette file as database of all filaments and copy only required lines to palette files for individual images. You may also want to experiment with different filament colors for best result.
 
+# Puzzle pieces rendering
+Now you can move `out.scad` to same directory where `puzzle.scad` resides (or use symlink) and open `puzzle.scad` in OpenSCAD.
+
+## Puzzle parameters
+Some parameters like total dimension or colors per layer are specified in `out.scad` and those must not be modified directly. If you need to modify them, use apropriate command line parameters in conversion tool.
+
+Parameters specified in `puzzle.scad` are freely customizable and documented by comments in source file. Most important ones are:
+* `pieces` – defines amount of pieces in X and Y dimensions respectively,
+* `spc` – spacing between puzzle pieces, you may need to adjust this according your printer, so you can easily separate the pieces after printing while not making them too loose,
+
+Also note, it is possible to re-render same-shaped puzzle pieces later, providing following parameters have same value as original print: `pieces`, `lock_size`, `rand_alter`, `seed`. Those parameters are directly affecting puzzle pieces shape.
+
+## Colorprint (single color per layer)
+As long as your puzzle fits on print bed, it should be enough to just render and export the model.
+
+## MMU print (multiple colors per layer)
+For MMU, you need to add parameter with rendered color to `piece_set();` command (or simply comment it out and uncomment commands below). You need to render and export each color individually in this case, to be later joined together in slicer.
+
+## Large puzzle
+In case you want puzzle larger than would fit on your print bed, you can limit number of puzzle pieces using start and dim parameters, for example: `piece_set(start=[0, 5], dim=[5, 5]);`
+
+# Slicing
+Only requirement for slicing is to match `layerHeight` parameter in `puzzle.scad` (default 0.2mm). Otherwise use your preferred software and methods to prepare color prints, like [prusa-slicer](https://help.prusa3d.com/article/color-change_1687).
 
 # Credits
 Sample image from [Pepper & Carrot](https://www.peppercarrot.com/en/) by David Revoy, License https://creativecommons.org/licenses/by/4.0/
