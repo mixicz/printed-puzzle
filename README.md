@@ -82,4 +82,4 @@ In case you want puzzle larger than would fit on your print bed, you can limit n
 Only requirement for slicing is to match `layerHeight` parameter in `puzzle.scad` (default 0.2mm). Otherwise use your preferred software and methods to prepare color prints, like [prusa-slicer](https://help.prusa3d.com/article/color-change_1687).
 
 # Credits
-Sample image from [Pepper & Carrot](https://www.peppercarrot.com/en/) by David Revoy, License https://creativecommons.org/licenses/by/4.0/
+[Sample image](https://www.peppercarrot.com/en/viewer/misc__2020-01-10_Hug-sticker-for-Signal_by-David-Revoy.html) from [Pepper & Carrot](https://www.peppercarrot.com/en/) by David Revoy, License https://creativecommons.org/licenses/by/4.0/

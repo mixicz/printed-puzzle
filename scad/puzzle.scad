@@ -33,7 +33,7 @@ rnd_edges = ( pieces.x + 1 ) * ( pieces.y + 1 ) * 2;
 rnd_lock_values = 8+1;             // number of random values required for generating 1 lock (1 direction + 4 points * 2 coordinates)
 rnd_shape = rands(-1, 1, rnd_lock_values * rnd_edges, seed);
 
-// base bezier paths
+// base bezier path for jigsaw lock
 pl_b = .8;
 pl_s = .4;
 path_lock = [
@@ -47,6 +47,8 @@ path_lock = [
 
 // full colors for single extruder print (1 color per layer)
 piece_set();
+
+// subset of puzzle pieces for large puzzles
 //piece_set(start=[0, 5], dim=[5, 5]);
 
 // multiple extruder (MMU) print - it is possible to use multiple layers for additional colors

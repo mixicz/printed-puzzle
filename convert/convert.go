@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"image"
 	"image/color"
-
 	_ "image/gif"
 	_ "image/jpeg"
 	"image/png"
@@ -20,20 +19,20 @@ import (
 
 	"golang.org/x/image/draw"
 
-	gotrace "github.com/dennwc/gotrace"
+	"github.com/dennwc/gotrace"
 	"gonum.org/v1/plot/font"
 	"gonum.org/v1/plot/tools/bezier"
 	"gonum.org/v1/plot/vg"
 )
 
 var (
-	scale       = float64(1)
-	bstep       = 0.2
-	imageSize   = 200.0
-	xSize       = 0.0
+	scale       = float64(1) // factor for scaling down/up original image
+	bstep       = 0.2        // step size for interpolating bezier curves
+	imageSize   = 200.0      // target image size in mm
+	xSize       = 0.0        // computed dimensions of output image in mm
 	ySize       = 0.0
-	nozzleSize  = 0.4
-	layerColors = 1
+	nozzleSize  = 0.4 // nozzle diameter in mm
+	layerColors = 1   // colors per single layer (for MMU prints)
 )
 
 type ppColor struct {
@@ -55,74 +54,6 @@ func (p *ppPalette) toPalette() (pal color.Palette) {
 	return
 }
 
-// func (p *ppPalette) findNearest(c color.Color) (idx int) {
-// 	h, s := rgb2hc(c)
-// 	var diff float64 = 99999
-// 	for i, pp := range *p {
-// 		dist := 3*math.Abs(h-pp.h) + math.Abs(s-pp.s)
-// 		if dist < diff {
-// 			idx = i
-// 			diff = dist
-// 		}
-// 	}
-// 	// }
-// 	return
-// }
-
-// func distance(p, n gotrace.Point) float64 {
-// 	dx := p.X - n.X
-// 	dy := p.Y - n.Y
-// 	return math.Sqrt(float64(dx*dx + dy*dy))
-// }
-
-// func abs(a int) int {
-// 	if a < 0 {
-// 		a = -a
-// 	}
-// 	return a
-// }
-
-// func rgb2hs(rr, gg, bb uint8) (h, s float64) {
-// 	var huePrime float64
-// 	r := float64(rr)
-// 	g := float64(gg)
-// 	b := float64(bb)
-// 	max := math.Max(math.Max(r, g), b)
-// 	min := math.Min(math.Min(r, g), b)
-// 	chroma := (max - min)
-// 	lvi := max
-
-// 	if chroma == 0 {
-// 		h = 0
-// 	} else {
-// 		if r == max {
-// 			huePrime = math.Mod(((g - b) / chroma), 6)
-// 		} else if g == max {
-// 			huePrime = ((b - r) / chroma) + 2
-
-// 		} else if b == max {
-// 			huePrime = ((r - g) / chroma) + 4
-
-// 		}
-
-// 		h = huePrime * 60
-// 	}
-// 	if lvi == 0 {
-// 		s = 0
-// 	} else {
-// 		s = (chroma / lvi)
-// 	}
-// 	if math.IsNaN(s) {
-// 		s = 0
-// 	}
-// 	return
-// }
-
-// func rgb2hc(c color.Color) (float64, float64) {
-// 	r, g, b, _ := c.RGBA()
-// 	return rgb2hs(uint8(r/0x100), uint8(g/0x100), uint8(b/0x100))
-// }
-
 // Reads the palette from given file
 // File format is simple text file with each line being HTML RGB(A) color representation followed by optional space separated filament name
 // e.g. "#ffffff PLA White"
@@ -132,6 +63,7 @@ func readPalette(fileName string) (pal ppPalette, err error) {
 		log.Fatal(e)
 	}
 	defer reader.Close()
+
 	scanner := bufio.NewScanner(reader)
 	r, _ := regexp.Compile(`^#?([0-9a-fA-F]{3,8})\s*(.*)$`)
 	for scanner.Scan() {
@@ -154,7 +86,6 @@ func readPalette(fileName string) (pal ppPalette, err error) {
 				}
 			}
 			c.Name = m[2]
-			// c.h, c.s = rgb2hs(c.Chan[0], c.Chan[1], c.Chan[2])
 			if ok {
 				pal = append(pal, c)
 			}
@@ -520,7 +451,7 @@ func main() {
 	imgPal := image.NewPaletted(b, pal)
 	for y := b.Min.Y; y < b.Max.Y; y++ {
 		for x := b.Min.X; x < b.Max.X; x++ {
-			imgPal.Set(x, y, contrast(img.At(x, y), 1.4))
+			imgPal.Set(x, y, contrast(img.At(x, y), 1.4)) // FIXME - do not use fixed contrast adjustment
 		}
 	}
 	scale = imageSize / bmax
